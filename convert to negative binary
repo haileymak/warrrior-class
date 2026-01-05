@@ -1,0 +1,45 @@
+from bisect import bisect_left as bisect
+def skrzat(base, number):
+    # start coding!
+    w=number
+    if base=='b':
+     a=0
+     b=list(reversed(str(number)))
+     for i in range(len(b)):
+        if int(b[i]):
+            a+=(-2)**i
+     return (f"From binary: {number} is {a}")
+
+    # 
+    if base=='d':
+     if number==0:return 'From decimal: 0 is 0'
+     a=0
+     positive=[]
+     digitlist=[]
+     for i in range(8):
+            a+=2**(2*i)
+            positive.append(a)
+    
+     negative=[]
+     a=0
+     for i in range(8):
+            a-=2**(2*i+1)
+            negative.append(a)
+     while number:
+      if number>0: 
+         idx=bisect(positive,number)
+         digit=2*idx+1
+      if number<0: 
+         idx=len(negative)-bisect(sorted(negative),number)
+         digit=2*idx+2
+      digitlist.append(digit)
+      number-=(-2)**(digit-1)
+     ans=[]
+     for i in range(max(digitlist),0,-1):
+        if i in digitlist:
+            ans.append('1')
+        else:
+            ans.append('0')
+     k=int(''.join(ans))
+     
+     return f"From decimal: {w} is {k}"
