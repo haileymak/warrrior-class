@@ -1,0 +1,43 @@
+class Warrior:
+    conversion=["Pushover", "Novice", "Fighter", "Warrior", "Veteran", "Sage", "Elite", "Conqueror", "Champion", "Master", "Greatest"]
+    def __init__(self):  
+        self._experience=100
+        self._level=1
+        self._rank=Warrior.conversion [self._level//10]
+        self._achievements=[]
+        
+    @property
+    def experience(self):
+        return self._experience
+    @property
+    def achievements(self):
+        return self._achievements
+    @property
+    def level(self):
+        return self._level
+    @property
+    def rank(self):
+        return self._rank
+
+    def battle(self,enemylevel):
+        if not(1<= enemylevel<=100):
+            return "Invalid level"
+        
+        diff=enemylevel-self.level
+        if diff>=5 and Warrior.conversion [enemylevel//10]!=self.rank:
+            return "You've been defeated"
+        if diff==0:
+            self.experience+=10
+            return "A good fight"
+        if diff==-1:
+            self.experience+=5
+            return "A good fight"
+        if diff>0:
+            self.experience+=20 * diff * diff
+        return "Easy fight"
+    def training(self,descri):
+        if descri[2]>self.level:
+            return "Not strong enough"
+        print(descri[0])
+        self.achievements.append(descri[0])
+        self.experience+=descri[1]
